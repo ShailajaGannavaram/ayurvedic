@@ -1,5 +1,11 @@
 import streamlit as st
 from PIL import Image
+st.set_page_config(
+    page_title="Ayurvedic Diet App",
+    page_icon="🌿",
+    layout="wide",
+    initial_sidebar_state="expanded"  # 👈 keeps sidebar open by default
+)
 
 # Load images
 example_img = Image.open("example.png")
@@ -19,6 +25,13 @@ if selection == "Home":
     Doctors can review AI-generated recommendations before sharing with patients.  
     """)
     st.image(example_img, caption="Ayurvedic Nutrition Concept", use_container_width=False, width=350)
+    if st.button("Go to Architecture Diagram"):
+        st.session_state.page = "Architecture"
+    if st.button("Try Workflow Demo"):
+        st.session_state.page = "Workflow"
+
+
+
 
 # ---------------- Architecture ----------------
 elif selection == "Architecture":
@@ -89,3 +102,4 @@ elif selection == "Research & References":
     6. Patwardhan, B., *Ayurveda and Systems Biology — A New Vision of Personalized Nutrition*  
     7. WHO Traditional Medicine Strategy (2025) — Encouraging integrative healthcare models  
     """)
+

@@ -4,17 +4,43 @@ st.set_page_config(
     page_title="Ayurvedic Diet App",
     page_icon="🌿",
     layout="wide",
-    initial_sidebar_state="expanded"  # 👈 keeps sidebar open by default
+    initial_sidebar_state="expanded"  # 👈 always show sidebar
 )
 
 # Load images
 example_img = Image.open("example.png")
 arch_img = Image.open("architecture.png")
 
-# Sidebar
-st.sidebar.title("Navigation")
-pages = ["Home", "Architecture", "Workflow Demo", "Research & References"]
-selection = st.sidebar.radio("Go to", pages)
+if "page" not in st.session_state:
+    st.session_state.page = "Home"
+with st.sidebar:
+    if st.button("🏠 Home"):
+        st.session_state.page = "Home"
+    if st.button("📊 Architecture"):
+        st.session_state.page = "Architecture"
+    if st.button("⚙️ Workflow Demo"):
+        st.session_state.page = "Workflow"
+    if st.button("📚 References"):
+        st.session_state.page = "References" 
+if st.session_state.page == "Home":
+    st.title("🌿 Ayurvedic Diet App Prototype")
+    st.image("example.png", width=400)
+    st.write("Welcome! Explore the features using the sidebar or quick buttons below.")
+    if st.button("Go to Architecture"):
+        st.session_state.page = "Architecture"
+    if st.button("Try Workflow Demo"):
+        st.session_state.page = "Workflow"  
+elif st.session_state.page == "Architecture":
+    st.title("System Architecture")
+    st.image("architecture.png", use_column_width=True)
+
+elif st.session_state.page == "Workflow":
+    st.title("Workflow Demo")
+    st.write("👉 Enter details to generate your personalized Ayurvedic diet chart.")
+
+elif st.session_state.page == "References":
+    st.title("Research & References")
+    st.write("All supporting studies, books, and prototype link provided here.") 
 
 # ---------------- Home ----------------
 if selection == "Home":
@@ -102,4 +128,5 @@ elif selection == "Research & References":
     6. Patwardhan, B., *Ayurveda and Systems Biology — A New Vision of Personalized Nutrition*  
     7. WHO Traditional Medicine Strategy (2025) — Encouraging integrative healthcare models  
     """)
+
 
